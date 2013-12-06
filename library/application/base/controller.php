@@ -1,7 +1,7 @@
 <?php
 	defined("ANTHEM_EXEC") or die;
 
-	class Controller {
+	class Controller extends Object {
 		
 		protected $_registry;
 		protected $load;
@@ -12,7 +12,7 @@
 		}
 
 		public function index(){
-			
+
 		}
 
 		final public function __get($key){

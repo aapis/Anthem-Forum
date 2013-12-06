@@ -17,6 +17,6 @@
 	include "library/includes/bootstrap.php";
 
 	//initialize the application
-	Application::execute();
+	Application::initialize();
 
 ?>

@@ -4,9 +4,7 @@
 	class Request {
 		
 		private $_controller;
-
 		private $_method;
-
 		private $_args;
 
 		public function __construct(){

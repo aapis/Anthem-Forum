@@ -14,6 +14,8 @@
 			if(is_readable($controllerFile)){
 				require_once $controllerFile;
 				
+				$controllerFileName = ucwords($controllerFileName);
+
 				$class = $controllerFileName."Controller";
 
 				$controller = new $class;

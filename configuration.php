@@ -2,11 +2,11 @@
 
 	defined("ANTHEM_EXEC") or die;
 	
-	abstract class Config {
-		public static $db_name = "";
-		public static $db_user = "";
-		public static $db_password = "";
-		public static $db_host = "localhost";
+	class Config {
+		public $db_name = "";
+		public $db_user = "";
+		public $db_password = "";
+		public $db_host = "localhost";
 	}
 
 ?>

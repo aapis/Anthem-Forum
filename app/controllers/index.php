@@ -1,5 +1,5 @@
 <?php
-	class indexController extends Controller {
+	class IndexController extends Controller {
 		
 		public function __construct(){
 			parent::__construct();
@@ -11,8 +11,10 @@
 			//$vars['title'] = 'Dynamic title';
 			//$vars['posts'] = $this->posts->getEntries();
 			$vars = array();
+			$test = new Object();
+			$test->set("test", "value");
 
-			$this->load->view('index',$vars);
+			$this->load->view('index');
 		}
 
 	}

@@ -16,6 +16,10 @@
 		}
 
 		public function go(){
+			if(false === file_exists(BASE ."/configuration.php")){
+				throw new Error("Missing config file.");
+			}
+			
 			return Router::route(new Request);
 		}
 	}
