@@ -1,4 +1,6 @@
 <?php
+	defined("ANTHEM_EXEC") or die;
+
 	class IndexController extends Controller {
 		
 		public function __construct(){
@@ -11,10 +13,12 @@
 			//$vars['title'] = 'Dynamic title';
 			//$vars['posts'] = $this->posts->getEntries();
 			$vars = array();
-			$test = new Object();
+			$vars["pageTitle"] = "Test page";
+			$vars["test"] = "foop";
+			$test = new Generic();
 			$test->set("test", "value");
-
-			$this->load->view('index');
+			
+			$this->load->view('index', $test);
 		}
 
 	}

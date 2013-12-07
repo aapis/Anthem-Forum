@@ -1,6 +1,6 @@
 <?php
 
-class forumController extends Controller{
+class ForumController extends Controller {
 	
 	public function display(){
 		echo '<pre>'.print_r(__METHOD__,1).'</pre>';	

@@ -8,7 +8,7 @@
 			$controllerFileName = $request->getController();
 			$method = $request->getMethod();
 			$args = $request->getArgs();
-
+			
 			$controllerFile = APP_PATH. '/controllers/'. $controllerFileName .'.php';
 
 			if(is_readable($controllerFile)){
@@ -30,6 +30,6 @@
 				return true;
 			}
 
-			throw new Exception('404 - '.$request->getController().' not found');
+			throw new Exception('404 - '. $controllerFileName .' not found');
 		}
 	}

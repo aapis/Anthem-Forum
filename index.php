@@ -16,7 +16,7 @@
 	//load the bootstrapper
 	include "library/includes/bootstrap.php";
 
-	//initialize the application
-	Application::initialize();
+	$application = new Application();
+	$application->initialize();
 
 ?>

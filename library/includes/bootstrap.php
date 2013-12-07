@@ -9,8 +9,10 @@
 	//load up any interfaces
 	include SITE_PATH . "application/base/interfaces/application.php";
 
+	include SITE_PATH . 'application/base/generic.php';
+	include SITE_PATH . 'application/base/user.php';
+	include SITE_PATH . 'application/base/view.php';
 	include SITE_PATH . "application/base/database.php";
-	include SITE_PATH . 'application/base/object.php';
 	include SITE_PATH . 'application/base/request.php';
 	include SITE_PATH . 'application/base/router.php';
 	include SITE_PATH . 'application/base/controller.php';

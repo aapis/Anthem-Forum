@@ -19,6 +19,8 @@
 			if(false === file_exists(BASE ."/configuration.php")){
 				throw new Error("Missing config file.");
 			}
+
+			echo "Welcome to your Anthem Forum";
 			
 			return Router::route(new Request);
 		}

@@ -1,7 +1,7 @@
 <?php
 	defined("ANTHEM_EXEC") or die;
 
-	class Model extends Object {
+	class Model extends Generic {
 
 	}
 ?>
