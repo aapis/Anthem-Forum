@@ -8,5 +8,4 @@
 		public $db_host = "localhost";
 		public $theme = "default";
 	}
-
 ?>

@@ -4,10 +4,6 @@
 	class SiteApplication extends Application implements AI_Application {
 		private static $_instance;
 
-		private function __construct(){
-
-		}
-
 		public function getApplication(){
 			return parent::getInstance();
 		}
