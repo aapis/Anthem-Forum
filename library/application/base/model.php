@@ -1,13 +1,19 @@
 <?php
 	defined("ANTHEM_EXEC") or die;
 
-	class Model extends Generic {
+	//extends Generic - removed for strict standards compliance, should modify 
+	//Generic/this maybe?
+	class Model {
 		private $model_name;
 		private $model_name_raw;
 
-		public function __construct($name){
+		protected $db;
+
+		public function __construct($name = null){
 			$this->model_name_raw = $name;
-			$this->model_name = sprintf("%sModel", ucwords($name));
+			$this->model_name = sprintf("%sModel", ucwords($this->model_name_raw));
+			$application = Application::getInstance();
+			$this->db = $application->getDBO();
 
 			return $this;
 		}

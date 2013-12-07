@@ -30,9 +30,10 @@
 				$this->db_host = $args['host'];
 				$this->db_username = $args['user'];
 				$this->db_name = $args['database'];
+				$this->db_driver = $args["driver"];
 				
 				try {
-					$this->factory = new PDO("mysql:host=$this->db_host;dbname=$this->db_name", $this->db_username, $this->db_password);
+					$this->factory = new PDO("$this->db_driver:host=$this->db_host;dbname=$this->db_name", $this->db_username, $this->db_password);
 				}catch(PDOException $e){
 					MA_ErrorHandler::Message('error', $e->getMessage());
 				}
@@ -202,6 +203,8 @@
 	 * Class: MA_ErrorHandler
 	 * 
 	 * Error handling for MA_Database
+	 * DEPRECATED for global Error exception handling 
+	 * TODO: remove me
 	 */
 	abstract class MA_ErrorHandler {
 		/**

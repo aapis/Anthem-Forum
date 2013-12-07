@@ -1,5 +1,4 @@
 <?php
-
 	/**
 	 * License information
 	 */
@@ -18,5 +17,4 @@
 
 	$application = new Application();
 	$application->initialize();
-
 ?>

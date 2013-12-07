@@ -19,7 +19,7 @@
 			if(false === file_exists(BASE ."/configuration.php")){
 				throw new Error("Missing config file.");
 			}
-
+			
 			if(false === defined('PDO::ATTR_DRIVER_NAME')){
 				throw new Error("Missing PDO driver, please install php_pdo.so/dll");
 			}

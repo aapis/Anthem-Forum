@@ -22,6 +22,20 @@
 
 		}
 
+		public function getDBO(){
+			$connection_opts = array(
+				"password" => $this->_config->db_password,
+				"user"     => $this->_config->db_user, 
+				"host"     => $this->_config->db_host,
+				"database" => $this->_config->db_name,
+				"driver"   => $this->_config->db_driver,
+				);
+
+			$db = Database::getInstance($connection_opts);
+
+			return $db;
+		}
+
 		public function getTheme(){
 			$theme = $this->getConfig()->theme;
 

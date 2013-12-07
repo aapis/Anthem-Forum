@@ -8,10 +8,6 @@
 		}
 
 		public function display(){
-			//$this->load->model('posts');
-			
-			//$vars['title'] = 'Dynamic title';
-			//$vars['posts'] = $this->posts->getEntries();
 			$vars = array();
 			$vars["pageTitle"] = "Test page";
 			$vars["test"] = "foop";
@@ -19,7 +15,7 @@
 			$test->set("test", "value");
 
 			$model = $this->load->model("index");
-			$forums = $model->get("forums");			
+			$forums = $model->get("forums");	
 
 			$this->load->view('index', $test);
 		}
