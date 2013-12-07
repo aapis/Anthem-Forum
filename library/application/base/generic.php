@@ -6,9 +6,9 @@
 	 */
 	class Generic {
 		public function __construct($properties = array()){
-			if(sizeof($properties) > 0){
-				$this->setProperties($properties);
-			}
+			//if(sizeof($properties) > 0){
+				//$this->setProperties($properties);
+			//}
 
 			return $this;
 		}

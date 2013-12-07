@@ -12,17 +12,17 @@
 
 			//wrap in try/catch for new exception type InvalidView
 			//try {
-				if(is_readable($file)){
-					$view->load($file, $vars);
-				}else {
-					throw new InvalidFileException(sprintf("Could not read file <strong>%s</strong>", $file));
-				}
+			if(is_readable($file)){
+				$view->load($file, $vars);
+			}else {
+				throw new InvalidFileException(sprintf("Could not read file <strong>%s</strong>", $file));
+			}
 			//} catch(InvalidFileException $e){
 			//	echo $e->getMessage();
 			//}
 		}
 
-		public function model($name){
+		public function modelOLD($name){
 			$model = $name.'Model';
 			$modelPath = APP_PATH .'/models/'.$model.'.php';
 
@@ -36,5 +36,18 @@
 				}
 			}
 			throw new Exception('Model issues.');
-		}	
+		}
+
+		public function model($name = null){
+			if(false === is_null($name)){
+				$model = new Model($name);
+				$model_path = sprintf(BASE ."/app/models/%s.php", $name);
+				
+				if(is_readable($model_path)){
+					return $model->load();
+				}else {
+					throw new InvalidFileException(sprintf("Could not read file <strong>%s</strong>", $model_path));
+				}
+			}
+		}
 	}

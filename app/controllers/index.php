@@ -17,7 +17,10 @@
 			$vars["test"] = "foop";
 			$test = new Generic();
 			$test->set("test", "value");
-			
+
+			$model = $this->load->model("index");
+			$forums = $model->get("forums");			
+
 			$this->load->view('index', $test);
 		}
 
