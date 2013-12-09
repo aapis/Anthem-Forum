@@ -25,4 +25,9 @@
 	include SITE_PATH . "application/environment/site.php";
 	include SITE_PATH . "application/environment/cli.php";
 
+	//startup app, set error reporting, etc
+	if(ANTHEM_DEV){
+		error_reporting(-1);
+	}
+
 ?>

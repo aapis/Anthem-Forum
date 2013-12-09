@@ -11,8 +11,4 @@
 	//basic language defines
 	define("ANTHEM_FAIL_INSTANTIATE", "Could not instantiate class");
 
-	if(ANTHEM_DEV){
-		error_reporting(-1);
-	}
-
 ?>

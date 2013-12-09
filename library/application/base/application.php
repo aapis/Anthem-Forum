@@ -29,6 +29,7 @@
 				"host"     => $this->_config->db_host,
 				"database" => $this->_config->db_name,
 				"driver"   => $this->_config->db_driver,
+				"prefix"   => $this->_config->db_prefix,
 				);
 
 			$db = Database::getInstance($connection_opts);

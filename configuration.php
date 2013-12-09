@@ -7,6 +7,7 @@
 		public $db_user = "root";
 		public $db_password = "mydbpassword";
 		public $db_host = "localhost";
+		public $db_prefix = "ant_";
 		public $theme = "default";
 	}
 	

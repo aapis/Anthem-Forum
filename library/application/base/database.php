@@ -6,22 +6,29 @@
 	class Database {
 		
 		// Class variables
-		private $query_string = null;
+		private $query_string;
 		
-		private static $_instance = null;
+		private static $_instance;
 		
-		protected $factory = null;
-		protected $handler = null;
+		protected $factory;
+		protected $handler;
+		protected $tbl_prefix;
 		protected $num_results = 0;
 		
 		/**
 		 * Initialize the connection if required, return the instance if not
 		 * TODO: refactor
 		 * 		 Refactor query methods to allow for chaining
+		 * 		 Should return a DatabaseResult object, not Generic
 		 */
 		private function __construct($args = array()){
 			if(false === isset(self::$_instance)){
 				$sConnection = sprintf("%s:host=%s;dbname=%s;", $args["driver"], $args["host"], $args["database"]);
+				$this->tbl_prefix = "ant_";
+
+				if(strlen($args["prefix"]) > 0){
+					$this->tbl_prefix = $args["prefix"];
+				}
 				
 				try {
 					$this->factory = new PDO($sConnection, $args["user"], $args["password"]);
