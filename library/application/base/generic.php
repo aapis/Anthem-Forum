@@ -36,7 +36,7 @@
 		}
 
 		public function setProperties($properties = array()){
-			if(sizeof($properties) > 0){
+			if(sizeof($properties) > 0 && (is_array($properties) || is_object($properties))){
 				foreach($properties as $key => $value){
 					$this->$key = $value;
 				}

@@ -6,11 +6,6 @@
 	class Database {
 		
 		// Class variables
-		public $db_host;
-		public $db_username;
-		public $db_password;
-		public $db_name;
-		
 		private $query_string = null;
 		
 		private static $_instance = null;
@@ -22,20 +17,17 @@
 		/**
 		 * Initialize the connection if required, return the instance if not
 		 * TODO: refactor
+		 * 		 Refactor query methods to allow for chaining
 		 */
 		private function __construct($args = array()){
 			if(false === isset(self::$_instance)){
-				
-				$this->db_password = $args['password'];
-				$this->db_host = $args['host'];
-				$this->db_username = $args['user'];
-				$this->db_name = $args['database'];
-				$this->db_driver = $args["driver"];
+				$sConnection = sprintf("%s:host=%s;dbname=%s;", $args["driver"], $args["host"], $args["database"]);
 				
 				try {
-					$this->factory = new PDO("$this->db_driver:host=$this->db_host;dbname=$this->db_name", $this->db_username, $this->db_password);
+					$this->factory = new PDO($sConnection, $args["user"], $args["password"]);
 				}catch(PDOException $e){
-					MA_ErrorHandler::Message('error', $e->getMessage());
+					//MA_ErrorHandler::Message('error', $e->getMessage());
+					throw new Error($e->getMessage()); //this may prove to be a bad idea
 				}
 				
 			}else {
@@ -44,7 +36,7 @@
 		}
 		
 		/**
-		 * [getInstance Initialize the connection if required, return the instance if not]
+		 * [Initialize the connection if required, return the instance if not]
 		 * @return [object]
 		 */
 		public static function getInstance($args = array()){
@@ -63,15 +55,17 @@
 		}
 		
 		/**
-		 * [_query Prepare the query, set $this->handler for use in other methods]
-		 * @return [void]
+		 * [Prepare the query, set $this->handler for use in other methods]
+		 * @return [object] For chaining
 		 */	
 		private function _query(){
 			$this->handler = $this->factory->prepare($this->query_string, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
+
+			return $this->handler;
 		}
 		
 		/**
-		 * [_as_array Parse a query result into an array we can use]
+		 * [Parse a query result into an array we can use]
 		 * @return [array]
 		 */
 		private function _as_array(){
@@ -88,59 +82,46 @@
 			}
 
 			$this->num_results = $i;
-			
+
 			return $return;
 		}
 		
 		/**
-		 * [_as_object Parse a query result into an object we can use]
+		 * [Parse a query result into an object we can use]
 		 * @return [object]
 		 */
-		private function _as_object(){
+		private function _as_object($type = "item"){
 			$this->handler->setFetchMode(PDO::FETCH_OBJ);
 			$this->handler->execute();
 			
-			$return = new stdClass();
-			$i = 0;
+			$return = new Generic(); //new stdClass();
 
-			while($row = $this->handler->fetch()){
-				$return->$i = $row;
-				
-				$i++;
+			if($type == "item"){
+				$_handler = $this->handler->fetch();
+
+				$return->set($_handler->Database, $_handler);
 			}
-
-			$this->num_results = $i;
 			
+			if($type == "list"){
+				$i = 0;
+
+				while($row = $this->handler->fetch()){
+					//$return->$i = $row;
+					$return->set($row->Database, $row);
+					//$return->set($i, $row);
+					
+					$i++;
+				}
+				//$return->setProperties($this->handler->fetch());
+
+				$this->num_results = $i;//sizeof($return); //$i;
+			}
+				
 			return $return;
 		}
-		
-		/**
-		 * [query_as_array Run the query and return an array]
-		 * @return [array]
-		 * 
-		 * @deprecated, use load methods instead
-		 */
-		public function query_as_array($query_string = null){
-			MA_ErrorHandler::Message('warning', 'MA_Database::query_as_array has been deprecated');
-
-			return $this->loadArrayList($query_string);
-		}
 
 		/**
-		 * [query_as_object Run the query and return an object]
-		 * @return [object]
-		 *
-		 * @deprecated, use load methods instead
-		 */
-		public function query_as_object($query_string = null){
-			MA_ErrorHandler::Message('warning', 'MA_Database::query_as_object has been deprecated');
-
-			return $this->loadObjectList($query_string);
-		}
-
-
-		/**
-		 * [loadArrayList Return an array of arrays]
+		 * [Return an array of arrays]
 		 * @param  [string] $query_string [The query string you want to run]
 		 * @return [array]
 		 */
@@ -151,8 +132,12 @@
 			return $this->_as_array();
 		}
 
+		public function loadResult($query_string = null){
+			//load one item in array form
+		}
+
 		/**
-		 * [loadObjectList Return a list of objects]
+		 * [Return a list of objects]
 		 * @param  [string] $query_string [The query string you want to run]
 		 * @return [array]
 		 */
@@ -160,11 +145,23 @@
 			$this->query_string = $query_string;
 			$this->_query();
 			
-			return $this->_as_object();
+			return $this->_as_object("list");
 		}
 
 		/**
-		 * [loadNumResults Get the number of affected rows from the query]
+		 * [Returns a single object]
+		 * @param  [type] $query_string [description]
+		 * @return [type]               [description]
+		 */
+		public function loadObject($query_string = null){
+			$this->query_string = $query_string;
+			$this->_query();
+			
+			return $this->_as_object("item");
+		}
+
+		/**
+		 * [Get the number of affected rows from the query]
 		 * @return [int] [The number of affected rows]
 		 */
 		public function loadNumResults(){
@@ -172,7 +169,7 @@
 		}
 		
 		/**
-		 * [execute Run boolean queries (insert, delete, etc)]
+		 * [Run boolean queries (insert, delete, etc)]
 		 * @return [bool]
 		 */
 		public function execute($query_string = null){
@@ -186,17 +183,6 @@
 
 			return !!$result;
 		}
-
-		/**
-		 * [run Run boolean queries (insert, delete, etc)]
-		 * @return [bool]
-		 *
-		 * @deprecated, use MA_Database::execute() instead
-		 */
-		public function run($query_string = null){
-			$this->execute($query_string);
-		}
-		
 	} //end class
 
 	/**

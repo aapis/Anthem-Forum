@@ -15,7 +15,8 @@
 			$test->set("test", "value");
 
 			$model = $this->load->model("index");
-			$forums = $model->get("forums");	
+			$forums = $model->get("forums");
+			var_dump($forums);
 
 			$this->load->view('index', $test);
 		}
