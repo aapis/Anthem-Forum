@@ -69,6 +69,11 @@
 			return $exec;
 		}
 
+		//stub for future functionality
+		public function redirect(){
+			return true;
+		}
+
 		public function toString(){
 			return get_class($this);
 		}

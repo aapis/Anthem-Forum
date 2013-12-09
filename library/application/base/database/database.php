@@ -6,7 +6,7 @@
 	class Database {
 		
 		// Class variables
-		private $query_string;
+		public $query_string;
 		
 		private static $_instance;
 		
@@ -33,7 +33,6 @@
 				try {
 					$this->factory = new PDO($sConnection, $args["user"], $args["password"]);
 				}catch(PDOException $e){
-					//MA_ErrorHandler::Message('error', $e->getMessage());
 					throw new Error($e->getMessage()); //this may prove to be a bad idea
 				}
 				
@@ -53,7 +52,6 @@
 				if(false === empty($args)){
 					self::$_instance = new $class($args);
 				}else {
-					//MA_ErrorHandler::Message('error', self::MA_COULD_NOT_INSTANTIATE);
 					throw new Error(ANTHEM_FAIL_INSTANTIATE);
 				}
 			}
@@ -97,11 +95,11 @@
 		 * [Parse a query result into an object we can use]
 		 * @return [object]
 		 */
-		private function _as_object($type = "item"){
+		private function _as_object($type = "item", $results_only = true){
 			$this->handler->setFetchMode(PDO::FETCH_OBJ);
 			$this->handler->execute();
 			
-			$return = new Generic(); //new stdClass();
+			$return = new DatabaseResult($this->tbl_prefix, $this->query_string);
 
 			if($type == "item"){
 				$_handler = $this->handler->fetch();
@@ -111,17 +109,18 @@
 			
 			if($type == "list"){
 				$i = 0;
+				$return->set("results", array());
 
 				while($row = $this->handler->fetch()){
-					//$return->$i = $row;
-					$return->set($row->Database, $row);
-					//$return->set($i, $row);
-					
+					$return->results[$i] = $row;
 					$i++;
 				}
-				//$return->setProperties($this->handler->fetch());
 
 				$this->num_results = $i;//sizeof($return); //$i;
+			}
+
+			if($results_only){
+				return $return->results;
 			}
 				
 			return $return;
@@ -132,14 +131,15 @@
 		 * @param  [string] $query_string [The query string you want to run]
 		 * @return [array]
 		 */
-		public function loadArrayList($query_string = null){
-			$this->query_string = $query_string;
+		public function loadArrayList($query_string = null, $results_only = true){
+			$this->query_string = $this->_parseQueryString($query_string);
 			$this->_query();
 			
-			return $this->_as_array();
+			return $this->_as_array("list", $results_only);
 		}
 
-		public function loadResult($query_string = null){
+		//stub for future functionality
+		public function loadResult($query_string = null, $results_only = true){
 			//load one item in array form
 		}
 
@@ -148,11 +148,11 @@
 		 * @param  [string] $query_string [The query string you want to run]
 		 * @return [array]
 		 */
-		public function loadObjectList($query_string = null){
-			$this->query_string = $query_string;
+		public function loadObjectList($query_string = null, $results_only = true){
+			$this->query_string = $this->_parseQueryString($query_string);
 			$this->_query();
 			
-			return $this->_as_object("list");
+			return $this->_as_object("list", $results_only);
 		}
 
 		/**
@@ -160,11 +160,11 @@
 		 * @param  [type] $query_string [description]
 		 * @return [type]               [description]
 		 */
-		public function loadObject($query_string = null){
-			$this->query_string = $query_string;
+		public function loadObject($query_string = null, $results_only = true){
+			$this->query_string = $this->_parseQueryString($query_string);
 			$this->_query();
 			
-			return $this->_as_object("item");
+			return $this->_as_object("item", $results_only);
 		}
 
 		/**
@@ -180,74 +180,19 @@
 		 * @return [bool]
 		 */
 		public function execute($query_string = null){
-			$this->query_string = $query_string;
+			$this->query_string = $this->_parseQueryString($query_string);
 
 			$result = $this->factory->exec($query_string);
 
 			if($result === 0){
-				MA_ErrorHandler::Message('warning', 'Query failed to run, 0 results.', $query_string);
+				throw new Error("Query failed to run, 0 results");
 			}
 
 			return !!$result;
 		}
-	} //end class
 
-	/**
-	 * Class: MA_ErrorHandler
-	 * 
-	 * Error handling for MA_Database
-	 * DEPRECATED for global Error exception handling 
-	 * TODO: remove me
-	 */
-	abstract class MA_ErrorHandler {
-		/**
-		 * [Message Display messages to the user]
-		 * @return [string]
-		 */
-		public static function Message($type = 'error', $message = null, $query_string = null){
-			switch($type){
-				case 'error': 
-					self::Error($message, $query_string);
-				break;
-
-				case 'warning':
-					self::Warning($message, $query_string);
-				break;
-			}
+		private function _parseQueryString($string){
+			return str_replace("#__", $this->tbl_prefix, $string);
 		}
-
-		/**
-		 * [Error Display errors as obnoxiously as possible]
-		 * @return [string]
-		 */
-		private function Error(){
-			$errors = func_get_args();
-
-			if(false === empty($errors)){
-				echo '<div class="user-message error">';
-					foreach($errors as $error){
-						echo '<h3>'. $error .'</h3>';
-					}
-				echo '</div>';
-			}
-
-			die();
-		}
-
-		/**
-		 * [Warning Display warnings to the user]
-		 * @return [string]
-		 */
-		private function Warning(){
-			$warnings = func_get_args();
-
-			if(false === empty($warnings)){
-				echo '<div class="user-message warning">';
-					foreach($warnings as $warning){
-						echo '<h3>'. $warning .'</h3>';
-					}
-				echo '</div>';
-			}
-		}
-	} //end class
+	}
 ?>

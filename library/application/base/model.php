@@ -32,11 +32,21 @@
 			}
 		}
 
-		public function get($key){
+		/**
+		 * Get a function from the associated model
+		 * @param  [type]  $key          Function name to get data from 
+		 *                               (excluding the "get") - i.e.
+		 *                               Model::getForum, $model->get("forum")
+		 * @param  boolean $results_only Show only the results of the query, 
+		 *                                default is true.  False returns the 
+		 *                                whole DatabaseResult object
+		 * @return boolean               
+		 */
+		public function get($key, $results_only = true){
 			$method = sprintf("get%s", ucwords($key));
 
 			if(method_exists($this, $method)){
-				return $this->$method();
+				return $this->$method($results_only);
 			}
 
 			return false;
