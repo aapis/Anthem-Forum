@@ -3,16 +3,20 @@
 	
 	class ForumController extends Controller {
 		
-		public function display(){
-			echo '<pre>'.print_r(__METHOD__,1).'</pre>';	
-			
+		public function __construct($args = array()){
+			$this->request = $args;
+
+			parent::__construct();
 		}
 
-
-		public function peas(){
-			echo '<pre>'.print_r(__METHOD__,1).'</pre>';	
-			echo '<pre>'.print_r(func_get_args(),1).'</pre>';	
+		public function display(){
+			//$model = $this->load->model(), gets name of class dynamically
+			$model = $this->load->model("forum", $this->request);
+			$forums = $model->get("forum");
 			
+			//$this->load->helper("demo");
+
+			$this->load->view("forum", $forums);
 		}
 	}
 ?>

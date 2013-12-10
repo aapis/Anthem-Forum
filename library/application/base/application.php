@@ -14,8 +14,14 @@
 		}
 
 		//instantiate the config class and expose certain properties
-		public function getConfig(){
-			return $this->_config;
+		public function getConfig($key = null){
+			$ret = $this->_config;
+
+			if(false === is_null($key)){
+				$ret = $this->_config->$key;
+			}
+			
+			return $ret;
 		}
 
 		public function getUser(){

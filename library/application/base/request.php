@@ -11,9 +11,9 @@
 			$parts = explode('/',$_SERVER['REQUEST_URI']);
 			$parts = array_filter($parts);
 
+			$this->_args = (isset($parts[sizeof($parts)]) ? array($parts[sizeof($parts)]) : array());//(isset($parts[0])) ? $parts : array();
 			$this->_controller = ($c = array_shift($parts))? $c: 'index';
 			$this->_method = ($c = array_shift($parts))? $c: 'display';
-			$this->_args = (isset($parts[0])) ? $parts : array();
 		}
 
 		public function getController(){

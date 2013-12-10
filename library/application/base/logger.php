@@ -1,4 +1,5 @@
 <?php
+	defined("ANTHEM_EXEC") or die;
 
 	class Logger extends Generic {
 		private $_path;

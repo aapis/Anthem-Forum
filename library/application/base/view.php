@@ -16,9 +16,20 @@
 			$this->set("theme", $application->getTheme());
 		}
 
+		/**
+		 * Transforms regular strings into URL friendly strings
+		 * @param  [type] $key [description]
+		 * @return [type]      [description]
+		 */
+		public function slugify($key){
+			$output = str_replace(" ", "-", strtolower($key)); //add regex for this shit later
+
+			return $output;
+		}
+
 		public function load($file, $vars = array()){
-			//expose user-defined variables to the class and view
-			$this->setProperties($vars);
+			//expose user-defined data to the class and view
+			$this->set("data", $vars);
 
 			//include the theme's header/footer files if they exist
 			$path = array();

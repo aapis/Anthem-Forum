@@ -18,12 +18,12 @@
 			return $this;
 		}
 
-		public function load(){
+		public function load($request_args = array()){
 			$model_path = sprintf(BASE ."/app/models/%s.php", $this->model_name_raw);
 			
 			if(require($model_path)){ //may be unnecessary, testing required
 				if(class_exists($this->model_name)){
-					$model = new $this->model_name;
+					$model = new $this->model_name($request_args);
 
 					return $model;
 				}

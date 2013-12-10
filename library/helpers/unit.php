@@ -1,5 +1,11 @@
 <?php
+	defined("ANTHEM_EXEC") or die;
 
+	/**
+	 * System Helper: Unit
+	 *
+	 * Basic unit testing functionality
+	 */
 	abstract class Unit {
 		public static function eq($cond1, $cond2){
 			$comp = ($cond1 == $cond2);

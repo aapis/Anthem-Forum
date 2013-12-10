@@ -18,7 +18,7 @@
 
 				$class = $controllerFileName."Controller";
 
-				$controller = new $class;
+				$controller = new $class($args);
 				$method = (is_callable(array($controller,$method))) ? $method : 'display';
 				
 				if(!empty($args)){

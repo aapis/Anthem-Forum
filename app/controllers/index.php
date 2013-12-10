@@ -8,15 +8,12 @@
 		}
 
 		public function display(){
-			$vars = array();
-			$vars["pageTitle"] = "Test page";
-
 			$model = $this->load->model("index");
 			$forums = $model->get("forums");
 			
-			$this->load->helper("demo");
+			//$this->load->helper("demo");
 
-			$this->load->view('index');
+			$this->load->view("index", $forums);
 		}
 
 	}

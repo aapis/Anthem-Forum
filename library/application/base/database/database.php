@@ -125,6 +125,12 @@
 			return $return;
 		}
 
+
+		//slug for future functionality
+		public function escape($str){
+			return $str;
+		}
+
 		/**
 		 * [Return an array of arrays]
 		 * @param  [string] $query_string [The query string you want to run]
