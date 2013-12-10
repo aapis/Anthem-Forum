@@ -1,5 +1,6 @@
 <?php
-
+	defined("ANTHEM_EXEC") or die;
+	
 	class Helper extends Generic {
 		public function __construct($name){
 			$this->helper_name_raw = $name;
