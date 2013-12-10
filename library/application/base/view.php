@@ -2,8 +2,6 @@
 	defined("ANTHEM_EXEC") or die;
 
 	class View extends Generic {
-		private $load;
-
 		private $_view;
 		
 		public $theme;
@@ -15,14 +13,8 @@
 
 			$application = Application::getInstance();
 
-			$this->theme = $application->getTheme();
+			$this->set("theme", $application->getTheme());
 		}
-
-		/*public function display(){
-			$this->load->header; //or something
-			$this->load->thethingIwant; //or something
-			$this->load->footer; //or something
-		}*/
 
 		public function load($file, $vars = array()){
 			//expose user-defined variables to the class and view
@@ -36,7 +28,7 @@
 			if(file_exists($path["header"])){
 				require($path["header"]);
 			}
-
+			
 			require($file);
 
 			if(file_exists($path["footer"])){

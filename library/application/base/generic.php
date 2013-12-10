@@ -47,13 +47,15 @@
 			return false;
 		}
 
-		public function getProperties(){
+		public function getProperties($private = false){
 			$ret = array();
 
 			$properties = get_object_vars($this);
 
 			foreach($properties as $key => $value){
-				if(strpos($key, "_") === false){
+				if(strpos($key, "_") === false && false === $private){
+					$ret[] = array($key => $value);
+				}else {
 					$ret[] = array($key => $value);
 				}
 			}

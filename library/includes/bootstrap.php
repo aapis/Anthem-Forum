@@ -14,6 +14,7 @@
 	include SITE_PATH . 'application/base/view.php';
 	include SITE_PATH . 'application/base/controller.php';
 	include SITE_PATH . 'application/base/model.php';
+	include SITE_PATH . 'application/base/helper.php';
 	include SITE_PATH . "application/base/database/database.php";
 	include SITE_PATH . "application/base/database/databaseresult.php";
 	include SITE_PATH . 'application/base/request.php';

@@ -1,3 +1,4 @@
+<?php var_dump($this); ?>
 <div id="container">
 	<div id="forum-header">
 		<nav class="main-navigation">

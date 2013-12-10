@@ -1,35 +1,31 @@
 <?php
-	/*
-	 * Requires PHP::PDO to be enabled
-	 */
-
-	class Database {
+	defined("ANTHEM_EXEC") or die;
+	
+	class Database extends Generic {
 		
 		// Class variables
-		public $query_string;
-		
 		private static $_instance;
-		
-		protected $factory;
-		protected $handler;
-		protected $tbl_prefix;
+		private $factory;
+		private $handler;
+
+		protected $query_string;
 		protected $num_results = 0;
+		protected $tbl_prefix = "ant_";
+		
 		
 		/**
 		 * Initialize the connection if required, return the instance if not
 		 * TODO: refactor
 		 * 		 Refactor query methods to allow for chaining
-		 * 		 Should return a DatabaseResult object, not Generic
 		 */
-		private function __construct($args = array()){
+		public function __construct($args = array()){
+			if(isset($args["prefix"]) && strlen($args["prefix"]) > 0){
+				$this->tbl_prefix = $args["prefix"];
+			}
+
 			if(false === isset(self::$_instance)){
 				$sConnection = sprintf("%s:host=%s;dbname=%s;", $args["driver"], $args["host"], $args["database"]);
-				$this->tbl_prefix = "ant_";
-
-				if(strlen($args["prefix"]) > 0){
-					$this->tbl_prefix = $args["prefix"];
-				}
-				
+								
 				try {
 					$this->factory = new PDO($sConnection, $args["user"], $args["password"]);
 				}catch(PDOException $e){
@@ -70,7 +66,7 @@
 		}
 		
 		/**
-		 * [Parse a query result into an array we can use]
+		 * [Process a query result into an array]
 		 * @return [array]
 		 */
 		private function _as_array(){
@@ -92,32 +88,35 @@
 		}
 		
 		/**
-		 * [Parse a query result into an object we can use]
+		 * [Process a query result into an object]
 		 * @return [object]
 		 */
 		private function _as_object($type = "item", $results_only = true){
 			$this->handler->setFetchMode(PDO::FETCH_OBJ);
 			$this->handler->execute();
 			
-			$return = new DatabaseResult($this->tbl_prefix, $this->query_string);
+			$return = new DatabaseResult();
+			$return->set("results", null);
 
 			if($type == "item"){
 				$_handler = $this->handler->fetch();
 
-				$return->set($_handler->Database, $_handler);
+				$return->results = $_handler;
 			}
 			
 			if($type == "list"){
+				$return->results = array();
 				$i = 0;
-				$return->set("results", array());
 
 				while($row = $this->handler->fetch()){
 					$return->results[$i] = $row;
 					$i++;
 				}
 
-				$this->num_results = $i;//sizeof($return); //$i;
+				$this->num_results = $i;
 			}
+
+			$return->setProperties($this);
 
 			if($results_only){
 				return $return->results;

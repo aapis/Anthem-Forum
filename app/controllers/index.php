@@ -10,15 +10,13 @@
 		public function display(){
 			$vars = array();
 			$vars["pageTitle"] = "Test page";
-			$vars["test"] = "foop";
-			$test = new Generic();
-			$test->set("test", "value");
 
 			$model = $this->load->model("index");
 			$forums = $model->get("forums");
-			var_dump($forums);
+			
+			$this->load->helper("demo");
 
-			$this->load->view('index', $test);
+			$this->load->view('index');
 		}
 
 	}
