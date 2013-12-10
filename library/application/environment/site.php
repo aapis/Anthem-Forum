@@ -24,6 +24,8 @@
 				throw new Error("Missing PDO driver, please install php_pdo.so/dll");
 			}
 
+			$logger = new Logger();
+
 			return Router::route(new Request);
 		}
 	}

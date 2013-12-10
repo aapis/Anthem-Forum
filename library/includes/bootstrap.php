@@ -22,7 +22,10 @@
 	include SITE_PATH . 'application/base/loader.php';
 	include SITE_PATH . 'application/base/registry.php';
 	include SITE_PATH . 'application/base/error.php';
+	include SITE_PATH . 'application/base/logger.php';
 	include SITE_PATH . 'application/base/application.php';
+
+	include SITE_PATH . 'helpers/unit.php';	
 
 	include SITE_PATH . "application/environment/site.php";
 	include SITE_PATH . "application/environment/cli.php";

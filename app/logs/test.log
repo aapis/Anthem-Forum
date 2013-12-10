@@ -1,0 +1,6 @@
+[12/09/2013 7:34:53] [/host/www/forum/library/helpers/unit.php:9] Unit::eq == boolean(false) 
+[12/09/2013 7:34:53] [/host/www/forum/library/helpers/unit.php:22] Unit::set == boolean(false) 
+[12/09/2013 7:35:32] [/host/www/forum/library/helpers/unit.php:9] Unit::eq == boolean(false) 
+[12/09/2013 7:35:32] [/host/www/forum/library/helpers/unit.php:22] Unit::set == boolean(false) 
+[12/09/2013 7:35:40] [/host/www/forum/library/helpers/unit.php:9] Unit::eq == boolean(false) 
+[12/09/2013 7:35:40] [/host/www/forum/library/helpers/unit.php:22] Unit::set == boolean(false) 

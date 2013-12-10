@@ -22,6 +22,13 @@
 
 		}
 
+		//log_path for custom logs
+		public function getLogger($log_path){
+			$logger = Logger::getInstance($log_path);
+
+			return $logger;
+		}
+
 		public function getDBO(){
 			$connection_opts = array(
 				"password" => $this->_config->db_password,
