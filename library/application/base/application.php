@@ -6,6 +6,7 @@
 	 */
 	class Application {
 		private $_config;
+		private $_title;
 
 		private static $_instance;
 
@@ -80,6 +81,16 @@
 			}
 
 			return $exec;
+		}
+
+		public function setTitle($new_title = null){
+			$title = "Default Page :: Anthem Forum";
+
+			if(false === is_null($new_title)){
+				$title = $new_title;
+			}
+
+			return $title;
 		}
 
 		//stub for future functionality

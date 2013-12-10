@@ -6,3 +6,4 @@
 		<title><?php echo $this->get("pageTitle", "Default"); ?></title>
 	</head>
 	<body>
+		<div id="container">

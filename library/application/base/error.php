@@ -5,7 +5,22 @@
 	 * Generic exception handling
 	 */
 	class Error extends Exception {
-		
+		public function raise($code = 404, $message = null){
+			try {
+				$name = sprintf("error-%s", $code);
+				$view = new View($name);
+				$view_path = sprintf(APP_PATH ."/views/errors/%s.php", $name);
+				
+				if(is_readable($view_path)){
+					$view->load($view_path, $message);
+					die();
+				}
+				
+				throw new InvalidFileException(sprintf("Could not read file <strong>%s</strong>", $view_path));
+			} catch(InvalidFileException $e){
+				echo $e->getMessage();
+			}
+		}
 	}
 
 	//TODO: move to own class

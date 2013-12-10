@@ -75,3 +75,13 @@ strong {
 #forum-footer {
 	background-color: pink;
 }
+
+.system-error {
+	margin-top: 20px;
+}
+
+.system-error ul {
+	background-color: #eee;
+	box-shadow: 5px 4px 5px rgba(0,0,0,0.5);
+	padding: 10px;
+}

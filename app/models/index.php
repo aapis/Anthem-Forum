@@ -2,6 +2,12 @@
 	defined("ANTHEM_EXEC") or die;
 	
 	class IndexModel extends Model {
+		public function __construct($request_args){
+			$this->_request = $request_args;
+
+			return parent::__construct();
+		}
+
 		public function getForums($results_only = true){
 			//return $this->db->loadObjectList("SELECT * FROM #__test", $results_only);
 

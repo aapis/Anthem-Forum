@@ -5,6 +5,8 @@
 	 * Generic object class
 	 */
 	class Generic {
+		protected $_errors = array();
+
 		public function __construct($properties = array()){
 			//if(sizeof($properties) > 0){
 				//$this->setProperties($properties);
@@ -61,6 +63,26 @@
 			}
 
 			return $ret;
+		}
+
+		public function setError($error_msg){
+			$ret = array("class" => $this->toString(), "error" => $error_msg);
+
+			$this->_errors[] = $ret;
+
+			return $ret;
+		}
+
+		/**
+		 * [Get ALL the errors]
+		 * @return mixed
+		 */
+		public function getError(){
+			if(sizeof($this->_errors) > 0){
+				return $this->_errors;
+			}
+
+			return false;
 		}
 	}
 

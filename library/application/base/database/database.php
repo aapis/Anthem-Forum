@@ -71,7 +71,10 @@
 		 */
 		private function _as_array(){
 			$this->handler->setFetchMode(PDO::FETCH_ASSOC);
-			$this->handler->execute();
+			
+			if(false === $this->handler->execute()){
+				$this->setError($this->handler->errorInfo()[2]);
+			}
 			
 			$return = array();
 			$i = 0;
@@ -84,6 +87,14 @@
 
 			$this->num_results = $i;
 
+			//an error occurred
+			if(is_array($this->getError())){
+				$error = new Error();
+				$error->raise(404, $this->getError());
+
+				return $error;
+			}
+
 			return $return;
 		}
 		
@@ -93,8 +104,12 @@
 		 */
 		private function _as_object($type = "item", $results_only = true){
 			$this->handler->setFetchMode(PDO::FETCH_OBJ);
-			$this->handler->execute();
 			
+			if(false === $this->handler->execute()){
+				$this->setError($this->handler->errorInfo()[2]);
+			}
+			
+			//build return value
 			$return = new DatabaseResult();
 			$return->set("results", null);
 
@@ -117,6 +132,14 @@
 			}
 
 			$return->setProperties($this);
+
+			//an error occurred
+			if(is_array($this->getError())){
+				$error = new Error();
+				$error->raise(404, $this->getError());
+
+				return $error;
+			}
 
 			if($results_only){
 				return $return->results;

@@ -54,6 +54,8 @@
 				}else {
 					throw new InvalidFileException(sprintf("File not found: %s", $path["footer"]));
 				}
+
+				return null;
 			}catch(InvalidFileException $e){
 				echo $e->getMessage();
 			}
