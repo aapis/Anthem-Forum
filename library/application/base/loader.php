@@ -6,7 +6,7 @@
 		public function view($name, $vars = array()){
 			try {
 				$view = new View($name);
-				$view_path = sprintf(APP_PATH ."/views/%s.php");
+				$view_path = sprintf(APP_PATH ."/views/%s.php", $name);
 
 				if(is_readable($view_path)){
 					$view->load($view_path, $vars);

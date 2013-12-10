@@ -25,14 +25,26 @@
 			$path["header"] = sprintf(BASE ."/app/themes/%s/header.php", $this->theme);
 			$path["footer"] = sprintf(BASE ."/app/themes/%s/footer.php", $this->theme);
 
-			if(file_exists($path["header"])){
-				require($path["header"]);
-			}
-			
-			require($file);
+			try {
+				if(file_exists($path["header"])){
+					require($path["header"]);
+				}else {
+					throw new InvalidFileException(sprintf("File not found: %s", $path["header"]));
+				}
 
-			if(file_exists($path["footer"])){
-				require($path["footer"]);
+				if(file_exists($file)){
+					require($file);
+				}else {
+					throw new InvalidFileException(sprintf("File not found: %s", $file));
+				}
+
+				if(file_exists($path["footer"])){
+					require($path["footer"]);
+				}else {
+					throw new InvalidFileException(sprintf("File not found: %s", $path["footer"]));
+				}
+			}catch(InvalidFileException $e){
+				echo $e->getMessage();
 			}
 
 			return true;
