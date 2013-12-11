@@ -108,13 +108,17 @@
 			if(false === $this->handler->execute()){
 				$this->setError($this->handler->errorInfo()[2]);
 			}
-			
+
 			//build return value
 			$return = new DatabaseResult();
 			$return->set("results", null);
 
 			if($type == "item"){
 				$_handler = $this->handler->fetch();
+
+				if(false === $_handler){
+					$this->setError(sprintf("<p>Forum <strong>%s</strong> not found.</p>", "test"));
+				}
 
 				$return->results = $_handler;
 			}

@@ -17,6 +17,7 @@
 	include SITE_PATH . 'application/base/helper.php';
 	include SITE_PATH . "application/base/database/database.php";
 	include SITE_PATH . "application/base/database/databaseresult.php";
+	include SITE_PATH . 'application/base/requesthandler.php';
 	include SITE_PATH . 'application/base/request.php';
 	include SITE_PATH . 'application/base/router.php';
 	include SITE_PATH . 'application/base/loader.php';

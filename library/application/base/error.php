@@ -13,6 +13,7 @@
 				
 				if(is_readable($view_path)){
 					$view->load($view_path, $message);
+					
 					die();
 				}
 				

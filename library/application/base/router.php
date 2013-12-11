@@ -3,7 +3,7 @@
 
 	class Router {
 		
-		public static function route(Request $request){
+		public static function route(RequestHandler $request){
 			
 			$controllerFileName = $request->getController();
 			$method = $request->getMethod();

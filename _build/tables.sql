@@ -12,4 +12,5 @@ CREATE TABLE `anthem`.`ant_forums` (
   `forum_name` VARCHAR(100) NOT NULL,
   `forum_status` INT NOT NULL,
   `forum_description` VARCHAR(100) NOT NULL,
+  `forum_slug` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`id`));
