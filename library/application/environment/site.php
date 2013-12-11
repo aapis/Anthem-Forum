@@ -26,7 +26,7 @@
 
 			$logger = new Logger();
 
-			return Router::route(new RequesHandler);
+			return Router::route(new RequestHandler);
 		}
 	}
 
