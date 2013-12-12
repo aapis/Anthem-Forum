@@ -38,7 +38,7 @@
 		public function helper($name = null, $environment = "app"){
 			try {
 				$helper = new Helper($name);
-				$file = FilePathAbsolver::getInstance()->process($name);
+				$file = FilePathResolver::getInstance()->process($name);
 
 				if($file->exists){
 					return $helper->load($file->path);

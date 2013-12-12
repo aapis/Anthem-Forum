@@ -10,8 +10,8 @@
 	include SITE_PATH . "application/base/interfaces/application.php";
 
 	include SITE_PATH . 'application/base/generic.php';
-	include SITE_PATH . 'application/base/filepathabsolver.php';
-	include SITE_PATH . 'application/base/user.php';
+	include SITE_PATH . 'application/base/filepathresolver.php';
+	//include SITE_PATH . 'application/base/user.php';
 	include SITE_PATH . 'application/base/view.php';
 	include SITE_PATH . 'application/base/controller.php';
 	include SITE_PATH . 'application/base/model.php';
@@ -23,7 +23,7 @@
 	include SITE_PATH . 'application/base/loader.php';
 	include SITE_PATH . 'application/base/registry.php';
 	include SITE_PATH . 'application/base/error.php';
-	include SITE_PATH . 'application/base/logger.php';
+	include SITE_PATH . 'application/base/logger.php'; //move to /app/libraries?
 	include SITE_PATH . 'application/base/application.php';
 
 	//include SITE_PATH . 'helpers/request.php'; 
