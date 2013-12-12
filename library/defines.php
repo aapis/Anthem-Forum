@@ -5,7 +5,7 @@
 	error_reporting(0);
 	
 	define("SITE_PATH", realpath(dirname(__FILE__)).'/');
-	define("APP_PATH", BASE . "/app");
+	define("APP_PATH", BASE . "/app/");
 	define("ANTHEM_DEV", true);
 
 	//basic language defines

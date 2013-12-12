@@ -117,7 +117,7 @@
 				$_handler = $this->handler->fetch();
 
 				if(false === $_handler){
-					$this->setError(sprintf("<p>Forum <strong>%s</strong> not found.</p>", "test"));
+					$this->setError("<p>Page not found. Return <a href=\"/\">Home</a>.");
 				}
 
 				$return->results = $_handler;

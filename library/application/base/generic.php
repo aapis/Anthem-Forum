@@ -11,7 +11,8 @@
 			//if(sizeof($properties) > 0){
 				//$this->setProperties($properties);
 			//}
-
+			//
+			
 			return $this;
 		}
 

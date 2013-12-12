@@ -86,3 +86,11 @@ strong {
 	border: 1px solid #ddd;
 	padding: 10px;
 }
+
+.system-error li.error-class {
+	margin-bottom: 10px;
+	padding-bottom: 5px;
+	font-size: 18px;
+	font-family: Courier, Georgia, serif;
+	border-bottom: 1px dotted #ddd;
+}

@@ -1,12 +1,12 @@
 <?php
 	defined("ANTHEM_EXEC") or die;
 
-	class Loader {
+	class Loader extends Generic {
 		//problem is here
 		public function view($name, $vars = array()){
 			try {
 				$view = new View($name);
-				$view_path = sprintf(APP_PATH ."/views/%s.php", $name);
+				$view_path = sprintf(APP_PATH ."views/%s.php", $name);
 
 				if(is_readable($view_path)){
 					return $view->load($view_path, $vars);
@@ -21,7 +21,7 @@
 		public function model($name = null, $request_args = array()){
 			try {
 				$model = new Model($name);
-				$model_path = sprintf(APP_PATH ."/models/%s.php", $name);
+				$model_path = sprintf(APP_PATH ."models/%s.php", $name);
 				
 				if(is_readable($model_path)){
 					return $model->load($request_args);
@@ -35,20 +35,24 @@
 			return false;
 		}
 
-		public function helper($name = null){
+		public function helper($name = null, $environment = "app"){
 			try {
 				$helper = new Helper($name);
-				$helper_path = sprintf(APP_PATH ."/helpers/%s.php", $name);
+				$file = FilePathAbsolver::getInstance()->process($name);
 
-				if(is_readable($helper_path)){
-					return $helper->load();
+				if($file->exists){
+					return $helper->load($file->path);
 				}
-
-				throw new InvalidFileException(sprintf("Could not read file <strong>%s</strong>", $helper_path));
+				
+				throw new InvalidFileException(sprintf("Could not read file <strong>%s</strong>", $file->path));
 			} catch(InvalidFileException $e){
 				echo $e->getMessage();
 			}
 
 			return false;
+		}
+
+		public function library($name = null){
+
 		}
 	}

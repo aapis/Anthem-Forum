@@ -1,6 +1,6 @@
 <?php
 	defined("ANTHEM_EXEC") or die;
-	
+
 	class Helper extends Generic {
 		public function __construct($name){
 			$this->helper_name_raw = $name;
@@ -11,8 +11,8 @@
 
 		//helpers are abstract classes, don't require instantiation and don't
 		//need/support references
-		public function load(){
-			$helper_path = sprintf(BASE ."/app/helpers/%s.php", $this->helper_name_raw);
+		public function load($helper_path){
+			//$helper_path = sprintf(BASE ."/app/helpers/%s.php", $this->helper_name_raw);
 			
 			if(require($helper_path)){ //may be unnecessary, testing required
 				return class_exists($this->helper_name);
