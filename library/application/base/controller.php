@@ -5,16 +5,26 @@
 		
 		protected $_registry;
 		protected $load;
+		protected $model;
 
 		public function __construct(){
 			$this->_registry = Registry::getInstance();
 			$this->load = new Loader();
+			$this->model = $this->load->model($this->getSlug());
 
 			//helpers are abstract, just include them
 			$this->load->helper("library.helpers.request");
 
 			//libraries are instantiated, create a reference to the object
 			$this->set("logger", $this->load->library("library.libraries.logger"));
+		}
+
+		protected function getSlug(){
+			if(strpos($this->toString(), "Controller") > 0){
+				return strtolower(str_replace("Controller", "", $this->toString()));
+			}
+
+			return null;
 		}
 
 		public function load(){

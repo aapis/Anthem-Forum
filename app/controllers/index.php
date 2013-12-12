@@ -8,11 +8,9 @@
 		}
 
 		public function display(){
-			$model = $this->load->model("index");
-			$forums = $model->get("forums");
-			
-			
-			$this->load->view("index", $forums);
+			$forums = $this->model->get("forums");
+
+			return $this->load->view("index", $forums);
 		}
 
 	}
