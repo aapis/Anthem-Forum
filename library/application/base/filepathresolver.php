@@ -4,7 +4,7 @@
 	class FilePathResolver extends Generic {
 		private static $_instance;
 
-		public function process($argument){
+		public function process($argument, $search_folder = "helpers"){
 			$parts = explode(".", $argument);
 			$size = sizeof($parts);
 			$ret = null;
@@ -12,10 +12,12 @@
 			if($size > 0){
 				$ret = new Generic();
 
-				if($size > 1){ //there is a folder
+				if($size > 1){ 
+					//there is a folder
 					$ret->set("folders", array_slice($parts, 0, -1));
 				}else {
-					$ret->set("folders", array("app", "helpers"));
+					//default location folders
+					$ret->set("folders", array("app", $search_folder));
 				}
 
 				$ret->set("file", $parts[$size-1]);
@@ -44,6 +46,7 @@
 			}
 
 			$ret->path .=  "/". $parts->file .".php";
+			$ret->class = ucwords($parts->file);
 
 			if(file_exists($ret->path)){
 				$ret->exists = true;

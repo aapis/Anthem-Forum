@@ -1,7 +1,7 @@
 <?php
 	defined("ANTHEM_EXEC") or die;
 
-	class Logger extends Generic {
+	class LoggerLibrary extends Generic {
 		private $_path;
 		private static $_instance;
 
@@ -13,7 +13,7 @@
 				$this->_path = $log_path;
 			}
 		}
-
+		
 		public static function getInstance($log_path = null){
 			if(false === self::$_instance instanceof self){
 				$class = __CLASS__;

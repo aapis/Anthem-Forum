@@ -13,8 +13,6 @@
 			//$model = $this->load->model(), gets name of class dynamically
 			$model = $this->load->model("forum", $this->request);
 			$forums = $model->get("forum");
-			
-			//$this->load->helper("demo");
 
 			$this->load->view("forum", $forums);
 		}

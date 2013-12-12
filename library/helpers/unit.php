@@ -6,7 +6,7 @@
 	 *
 	 * Basic unit testing functionality
 	 */
-	abstract class Unit {
+	abstract class UnitHelper {
 		public static function eq($cond1, $cond2){
 			$comp = ($cond1 == $cond2);
 			

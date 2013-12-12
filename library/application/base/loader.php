@@ -2,6 +2,12 @@
 	defined("ANTHEM_EXEC") or die;
 
 	class Loader extends Generic {
+		private $_resolver;
+
+		public function __construct(){
+			$this->_resolver = FilePathResolver::getInstance();
+		}
+
 		//problem is here
 		public function view($name, $vars = array()){
 			try {
@@ -37,11 +43,11 @@
 
 		public function helper($name = null, $environment = "app"){
 			try {
-				$helper = new Helper($name);
-				$file = FilePathResolver::getInstance()->process($name);
+				$file = $this->_resolver->process($name);
+				$helper = new Helper($file);
 
 				if($file->exists){
-					return $helper->load($file->path);
+					return $helper->load();
 				}
 				
 				throw new InvalidFileException(sprintf("Could not read file <strong>%s</strong>", $file->path));
@@ -53,6 +59,19 @@
 		}
 
 		public function library($name = null){
+			try {
+				$file = $this->_resolver->process($name);
+				$library = new Library($file);
 
+				if($file->exists){
+					return $library->load();
+				}
+
+				throw new InvalidFileException(sprintf("Could not read file <strong>%s</strong>", $file->path));
+			}catch(InvalidFileException $e){
+				echo $e->getMessage();
+			}
+
+			return false;
 		}
 	}

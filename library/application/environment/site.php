@@ -24,8 +24,6 @@
 				throw new Error("Missing PDO driver, please install php_pdo.so/dll");
 			}
 
-			$logger = new Logger(); //TODO: move to Loader::library call
-
 			return Router::route(new RequestHandler);
 		}
 	}

@@ -1,21 +1,23 @@
 <?php
 	defined("ANTHEM_EXEC") or die;
-
-	class Helper extends Generic implements AI_LoaderType {
-		public function __construct(Generic $properties){
+	
+	class Library extends Generic implements AI_LoaderType {
+		public function __construct($properties = null){
 			$this->setProperties($properties);
+			$application = Application::getInstance();
+			$this->db = $application->getDBO();
 
 			return $this;
 		}
 
 		public function load(){
-			//$model_path = sprintf(BASE ."/app/models/%s.php", $this->path);
-			
-			if(require($this->path)){ //may be unnecessary, testing required
+			if(require($this->path)){
 				$class = $this->class . ucwords($this->toString());
 
 				if(class_exists($class)){
-					return true;
+					$_toLoad = new $class();
+
+					return $_toLoad;
 				}
 
 				throw new InvalidFileException(sprintf("Class not found: <strong>%s</strong>", $class));

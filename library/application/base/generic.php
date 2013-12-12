@@ -7,11 +7,14 @@
 	class Generic {
 		protected $_errors = array();
 
+		private $error;
+
 		public function __construct($properties = array()){
 			//if(sizeof($properties) > 0){
 				//$this->setProperties($properties);
 			//}
 			//
+			//$this->error = new Error(); //temp commented out
 			
 			return $this;
 		}

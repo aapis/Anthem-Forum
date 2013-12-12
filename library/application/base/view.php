@@ -1,7 +1,7 @@
 <?php
 	defined("ANTHEM_EXEC") or die;
 
-	class View extends Generic {
+	class View extends Generic implements AI_LoaderType {
 		private $_view;
 		
 		public $theme;

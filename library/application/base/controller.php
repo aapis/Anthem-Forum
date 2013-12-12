@@ -1,7 +1,7 @@
 <?php
 	defined("ANTHEM_EXEC") or die;
 
-	class Controller extends Generic {
+	class Controller extends Generic implements AI_LoaderType {
 		
 		protected $_registry;
 		protected $load;
@@ -13,8 +13,15 @@
 			//load default classes
 			$this->load->helper("library.helpers.request");
 			$this->load->helper("demo");
+
+			//$this->load->library("library.libraries.html");
+			//$library = $this->load->library("library.libraries.html");
+			//$logger = $this->load->library("library.libraries.logger");
 			
-			//$this->load->library("logger");
+		}
+
+		public function load(){
+			return;
 		}
 
 		final public function __get($key){

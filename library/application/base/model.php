@@ -3,7 +3,7 @@
 
 	//extends Generic - removed for strict standards compliance, should modify 
 	//Generic/this maybe?
-	class Model extends Generic {
+	class Model extends Generic implements AI_LoaderType {
 		private $model_name;
 		private $model_name_raw;
 
