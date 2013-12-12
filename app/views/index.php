@@ -3,7 +3,7 @@
 		<ul>
 			<li><a href="/">Home</a></li>
 			<li><a href="/forum">Forum</a></li>
-			<li><span>Current Page: <?php echo RequestHelper::get("page", "home"); ?></span></li>
+			<li><span>Current Page: <?php echo Request::get("page", "home"); ?></span></li>
 		</ul>
 	</nav>
 </div>
@@ -16,7 +16,7 @@
 	<table class="forum-table" width="100%">
 		<?php foreach($this->data as $forum): ?>
 			<tr>
-				<td><a href="<?php echo sprintf('/forum/%s', $this->slugify($forum->name)); ?>"><?php echo $forum->name; ?></a></td>
+				<td><?php echo $this->html->a(sprintf('/forum/%s', $this->slugify($forum->name)), $forum->name); ?></td>
 			</tr>
 			<tr>
 				<td><?php echo $forum->description; ?></td>

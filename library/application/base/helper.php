@@ -9,16 +9,12 @@
 		}
 
 		public function load(){
-			//$model_path = sprintf(BASE ."/app/models/%s.php", $this->path);
-			
-			if(require($this->path)){ //may be unnecessary, testing required
-				$class = $this->class . ucwords($this->toString());
-
-				if(class_exists($class)){
+			if(require($this->path)){
+				if(class_exists($this->class)){
 					return true;
 				}
 
-				throw new InvalidFileException(sprintf("Class not found: <strong>%s</strong>", $class));
+				throw new InvalidFileException(sprintf("Class not found: <strong>%s</strong>", $this->class));
 			}
 
 			return false;

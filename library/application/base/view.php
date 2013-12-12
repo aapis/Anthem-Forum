@@ -3,6 +3,7 @@
 
 	class View extends Generic implements AI_LoaderType {
 		private $_view;
+		private $_load;
 		
 		public $theme;
 
@@ -11,9 +12,12 @@
 				$this->_view = $name;
 			}
 
+			$this->_load = new Loader();
+
 			$application = Application::getInstance();
 
 			$this->set("theme", $application->getTheme());
+			$this->set("html", $this->_load->library("library.libraries.html"));
 		}
 
 		/**

@@ -1,7 +1,7 @@
 <?php
 	defined("ANTHEM_EXEC") or die;
 
-	abstract class DemoHelper {
+	abstract class Demo {
 		public static function doTest(){
 			echo "test";
 		}

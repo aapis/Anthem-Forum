@@ -10,14 +10,11 @@
 			$this->_registry = Registry::getInstance();
 			$this->load = new Loader();
 
-			//load default classes
+			//helpers are abstract, just include them
 			$this->load->helper("library.helpers.request");
-			$this->load->helper("demo");
 
-			//$this->load->library("library.libraries.html");
-			//$library = $this->load->library("library.libraries.html");
-			//$logger = $this->load->library("library.libraries.logger");
-			
+			//libraries are instantiated, create a reference to the object
+			$this->set("logger", $this->load->library("library.libraries.logger"));
 		}
 
 		public function load(){

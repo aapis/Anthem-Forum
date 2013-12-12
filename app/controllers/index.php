@@ -11,8 +11,7 @@
 			$model = $this->load->model("index");
 			$forums = $model->get("forums");
 			
-			//$this->load->helper("demo");
-
+			
 			$this->load->view("index", $forums);
 		}
 

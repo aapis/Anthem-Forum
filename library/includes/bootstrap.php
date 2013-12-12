@@ -27,9 +27,6 @@
 	include SITE_PATH . 'application/base/error.php';
 	include SITE_PATH . 'application/base/application.php';
 
-	//include SITE_PATH . 'helpers/request.php'; 
-	//include SITE_PATH . 'helpers/unit.php';	
-
 	include SITE_PATH . "application/environment/site.php";
 	include SITE_PATH . "application/environment/cli.php";
 

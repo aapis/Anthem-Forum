@@ -6,7 +6,7 @@
 	 *
 	 * Safely return query string elements
 	 */
-	abstract class RequestHelper {
+	abstract class Request {
 		public static function get($key, $default = null){
 			$search = isset($_GET[$key]) ? $_GET[$key] : $default;
 

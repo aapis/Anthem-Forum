@@ -1,6 +1,6 @@
 <?php
 	defined("ANTHEM_EXEC") or die;
-	
+
 	class Library extends Generic implements AI_LoaderType {
 		public function __construct($properties = null){
 			$this->setProperties($properties);
@@ -12,18 +12,20 @@
 
 		public function load(){
 			if(require($this->path)){
-				$class = $this->class . ucwords($this->toString());
-
-				if(class_exists($class)){
-					$_toLoad = new $class();
+				if(class_exists($this->class)){
+					$_toLoad = new $this->class();
 
 					return $_toLoad;
 				}
 
-				throw new InvalidFileException(sprintf("Class not found: <strong>%s</strong>", $class));
+				throw new InvalidFileException(sprintf("Class not found: <strong>%s</strong>", $this->class));
 			}
 
 			return false;
+		}
+
+		public function test(){
+			return $this->toString();
 		}
 	}
 
