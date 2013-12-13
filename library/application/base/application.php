@@ -30,7 +30,7 @@
 		}
 
 		//log_path for custom logs
-		public function getLogger($log_path){
+		public function getLogger($log_path = null){
 			$logger = Logger::getInstance($log_path);
 
 			return $logger;
@@ -90,12 +90,18 @@
 				$title = $new_title;
 			}
 
+			$this->_title = $title;
+
 			return $title;
 		}
 
+		public function getTitle(){
+			return $this->_title;
+		}
+
 		//stub for future functionality
-		public function redirect(){
-			return true;
+		public function redirect($location = "/", $code = 404){
+			return header(sprintf("Location:%s", $location), true, $code);
 		}
 
 		public function toString(){

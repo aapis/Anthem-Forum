@@ -9,7 +9,14 @@
 			$method = $request->getMethod();
 			$args = $request->getArgs();
 			
-			$controllerFile = APP_PATH. '/controllers/'. $controllerFileName .'.php';
+			//search the APP_PATH for a valid controller
+			$controllerFile = sprintf("%s/controllers/%s.php", APP_PATH, $controllerFileName);
+
+			//search the LIB_PATH for a valid controller if one isn't found in
+			//APP_PATH
+			if(false === is_readable($controllerFile)){
+				$controllerFile = sprintf("%sapplication/base/controller/%s.php", LIB_PATH, $controllerFileName);
+			}
 
 			if(is_readable($controllerFile)){
 				require_once $controllerFile;
@@ -20,7 +27,7 @@
 
 				$controller = new $class($args);
 				$method = (is_callable(array($controller,$method))) ? $method : 'display';
-				
+
 				if(!empty($args)){
 					call_user_func_array(array($controller,$method),$args);
 				}else{	

@@ -8,11 +8,12 @@
 		public function raise($code = 404, $message = null){
 			try {
 				$name = sprintf("error-%s", $code);
-				$view = new View($name);
+				//$view = new View($name, array("isError", true));
 				$view_path = sprintf(APP_PATH ."/views/errors/%s.php", $name);
 				
 				if(is_readable($view_path)){
-					$view->load($view_path, $message);
+					//$view->load($view_path, $message);
+					return $this->_redirect($code);
 					
 					die();
 				}
@@ -21,6 +22,12 @@
 			} catch(InvalidFileException $e){
 				echo $e->getMessage();
 			}
+		}
+
+		private function _redirect($code){
+			$app = Application::getInstance();
+			
+			return $app->redirect("/error", $code);
 		}
 	}
 

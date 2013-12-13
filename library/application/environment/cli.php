@@ -3,10 +3,13 @@
 	
 	class CLIApplication implements AI_Application {
 		private static $_instance;
+		private $version = "0.0.1a";
 
 		public static function getInstance(){
 			if(!self::$_instance instanceof self){
-				self::$_instance = new CLIApplication();
+				$class = __CLASS__;
+
+				self::$_instance = new $class();
 			}
 			return self::$_instance;
 		}

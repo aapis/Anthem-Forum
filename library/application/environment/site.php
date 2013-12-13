@@ -1,8 +1,9 @@
 <?php
 	defined("ANTHEM_EXEC") or die;
 	
-	class SiteApplication extends Application implements AI_Application {
+	class SiteApplication implements AI_Application {
 		private static $_instance;
+		private $version = "0.0.1a";
 
 		public function getApplication(){
 			return parent::getInstance();
@@ -10,7 +11,9 @@
 
 		public static function getInstance(){
 			if(!self::$_instance instanceof self){
-				self::$_instance = new SiteApplication();
+				$class = __CLASS__;
+
+				self::$_instance = new $class();
 			}
 			return self::$_instance;
 		}

@@ -20,12 +20,20 @@
 			
 		}
 
+		public function error(){
+			echo "test";
+		}
+
 		protected function getSlug(){
 			if(strpos($this->toString(), "Controller") > 0){
 				return strtolower(str_replace("Controller", "", $this->toString()));
 			}
 
 			return null;
+		}
+
+		public function load(){
+			return;
 		}
 
 		final public function __get($key){

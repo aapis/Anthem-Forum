@@ -20,7 +20,7 @@
 
 			$_GET["page"] = $this->_controller;
 			$_GET["action"] = $this->_method;
-			$_GET["forum"] = $this->_args;
+			$_GET["args"] = $this->_args;
 		}
 
 		public function getController(){

@@ -16,6 +16,14 @@
 
 			return $search;
 		}
+
+		public static function dump(){
+			if(false === empty($_GET)){
+				return $_GET;
+			}
+
+			return false;
+		}
 	}
 
 ?>

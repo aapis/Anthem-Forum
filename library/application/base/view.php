@@ -13,7 +13,8 @@
 			$this->_load = new Loader();
 
 			$application = Application::getInstance();
-
+			
+			$this->set("pageTitle", "test");
 			$this->set("theme", $application->getTheme());
 			$this->set("html", $this->_load->library("library.libraries.html"));
 			$this->set("data", $vars);
@@ -39,22 +40,28 @@
 			$path["footer"] = sprintf(APP_PATH ."themes/%s/footer.php", $this->theme);
 
 			try {
-				if(file_exists($path["header"])){
-					require($path["header"]);
-				}else {
-					throw new InvalidFileException(sprintf("File not found: %s", $path["header"]));
-				}
+				if(isset($this->path)){
+					if(file_exists($path["header"])){
+						require($path["header"]);
+					}else {
+						throw new InvalidFileException(sprintf("File not found: %s", $path["header"]));
+					}
 
-				if(file_exists($this->path)){
-					require($this->path);
-				}else {
-					throw new InvalidFileException(sprintf("File not found: %s", $this->path));
-				}
+					if(file_exists($this->path)){
+						require($this->path);
+					}else {
+						throw new InvalidFileException(sprintf("File not found: %s", $this->path));
+					}
 
-				if(file_exists($path["footer"])){
-					require($path["footer"]);
+					if(file_exists($path["footer"])){
+						require($path["footer"]);
+					}else {
+						throw new InvalidFileException(sprintf("File not found: %s", $path["footer"]));
+					}
 				}else {
-					throw new InvalidFileException(sprintf("File not found: %s", $path["footer"]));
+					//this doesn't really work at all
+					$error = new Error();
+					$error->raise(404, "test");
 				}
 
 				return null;
