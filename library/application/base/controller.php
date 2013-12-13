@@ -17,6 +17,7 @@
 
 			//libraries are instantiated, create a reference to the object
 			$this->set("logger", $this->load->library("library.libraries.logger"));
+			
 		}
 
 		protected function getSlug(){

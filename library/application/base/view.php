@@ -7,10 +7,8 @@
 		
 		public $theme;
 
-		public function __construct($name = null){
-			if(false === is_null($name)){
-				$this->_view = $name;
-			}
+		public function __construct($properties = null, $vars = array()){
+			$this->setProperties($properties);
 
 			$this->_load = new Loader();
 
@@ -18,6 +16,9 @@
 
 			$this->set("theme", $application->getTheme());
 			$this->set("html", $this->_load->library("library.libraries.html"));
+			$this->set("data", $vars);
+
+			return $this;
 		}
 
 		/**
@@ -31,14 +32,11 @@
 			return $output;
 		}
 
-		public function load($file, $vars = array()){
-			//expose user-defined data to the class and view
-			$this->set("data", $vars);
-
+		public function load(){
 			//include the theme's header/footer files if they exist
 			$path = array();
-			$path["header"] = sprintf(BASE ."/app/themes/%s/header.php", $this->theme);
-			$path["footer"] = sprintf(BASE ."/app/themes/%s/footer.php", $this->theme);
+			$path["header"] = sprintf(APP_PATH ."themes/%s/header.php", $this->theme);
+			$path["footer"] = sprintf(APP_PATH ."themes/%s/footer.php", $this->theme);
 
 			try {
 				if(file_exists($path["header"])){
@@ -47,10 +45,10 @@
 					throw new InvalidFileException(sprintf("File not found: %s", $path["header"]));
 				}
 
-				if(file_exists($file)){
-					require($file);
+				if(file_exists($this->path)){
+					require($this->path);
 				}else {
-					throw new InvalidFileException(sprintf("File not found: %s", $file));
+					throw new InvalidFileException(sprintf("File not found: %s", $this->path));
 				}
 
 				if(file_exists($path["footer"])){

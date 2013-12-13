@@ -10,6 +10,10 @@
 		public static function get($key, $default = null){
 			$search = isset($_GET[$key]) ? $_GET[$key] : $default;
 
+			if(is_array($search)){
+				return $search[0];
+			}
+
 			return $search;
 		}
 	}

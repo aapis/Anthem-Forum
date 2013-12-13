@@ -8,20 +8,27 @@
 			$this->_resolver = FilePathResolver::getInstance();
 		}
 
-		//problem is here
-		public function view($name, $vars = array()){
+		/**
+		 * Creates a new view with all the required properties
+		 * @param  [type] $name [description]
+		 * @param  array  $vars [description]
+		 * @return [type]       [description]
+		 */
+		public function view($name = null, $vars = array()){
 			try {
-				$view = new View($name);
-				$view_path = sprintf(APP_PATH ."views/%s.php", $name);
+				$file = $this->_resolver->process($name, "views");
+				$view = new View($file, $vars);
 
-				if(is_readable($view_path)){
-					return $view->load($view_path, $vars);
+				if($file->exists){
+					return $view->load();
 				}
 				
-				throw new InvalidFileException(sprintf("Could not read file <strong>%s</strong>", $view_path));
+				throw new InvalidFileException(sprintf("Could not read file <strong>%s</strong>", $file->path));
 			} catch(InvalidFileException $e){
 				echo $e->getMessage();
 			}
+
+			return false;
 		}
 
 		public function model($name = null, $request_args = array()){
@@ -41,9 +48,9 @@
 			return false;
 		}
 
-		public function helper($name = null, $environment = "app"){
+		public function helper($name = null){
 			try {
-				$file = $this->_resolver->process($name);
+				$file = $this->_resolver->process($name, "helpers");
 				$helper = new Helper($file);
 
 				if($file->exists){
@@ -60,7 +67,7 @@
 
 		public function library($name = null){
 			try {
-				$file = $this->_resolver->process($name);
+				$file = $this->_resolver->process($name, "libraries");
 				$library = new Library($file);
 
 				if($file->exists){

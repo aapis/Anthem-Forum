@@ -18,9 +18,9 @@
 			//reset GET
 			$_GET = array();
 
-			$_GET["controller"] = $this->_controller;
-			$_GET["method"] = $this->_method;
-			$_GET["args"] = $this->_args;
+			$_GET["page"] = $this->_controller;
+			$_GET["action"] = $this->_method;
+			$_GET["forum"] = $this->_args;
 		}
 
 		public function getController(){
