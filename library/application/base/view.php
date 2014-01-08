@@ -14,10 +14,10 @@
 
 			$application = Application::getInstance();
 			
-			$this->set("pageTitle", "test");
 			$this->set("theme", $application->getTheme());
 			$this->set("html", $this->_load->library("library.libraries.html"));
 			$this->set("data", $vars);
+			$this->set("pageTitle", $this->get("class"));
 
 			return $this;
 		}
