@@ -45,7 +45,6 @@
 				"driver"   => $this->_config->db_driver,
 				"prefix"   => $this->_config->db_prefix,
 				);
-
 			$db = Database::getInstance($connection_opts);
 
 			return $db;
@@ -101,7 +100,12 @@
 
 		//stub for future functionality
 		public function redirect($location = "/", $code = 404){
-			return header(sprintf("Location:%s", $location), true, $code);
+			//return header(sprintf("Location:%s", $location), true, $code);
+			if($code < 1000){ //is an HTTP error
+				return header(sprintf("Location:%s", $location), true, $code);
+			}
+
+			return header(sprintf("Location:%s", $location), true);
 		}
 
 		public function toString(){

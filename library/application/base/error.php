@@ -5,6 +5,14 @@
 	 * Generic exception handling
 	 */
 	class Error extends Exception {
+		public function __construct($value){
+			if(is_numeric($value)){
+				return $this->raise($value);
+			}
+
+			return $this->raise(404, $value);
+		}
+
 		public function raise($code = 404, $message = null){
 			try {
 				$name = sprintf("error-%s", $code);

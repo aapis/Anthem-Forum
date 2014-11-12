@@ -25,11 +25,12 @@
 
 			if(false === isset(self::$_instance)){
 				$sConnection = sprintf("%s:host=%s;dbname=%s;", $args["driver"], $args["host"], $args["database"]);
-								
+				
 				try {
 					$this->factory = new PDO($sConnection, $args["user"], $args["password"]);
 				}catch(PDOException $e){
-					throw new Error($e->getMessage()); //this may prove to be a bad idea
+					//throw new Error($e->getMessage()); //this may prove to be a bad idea
+					throw new Error($e->getCode());
 				}
 				
 			}else {

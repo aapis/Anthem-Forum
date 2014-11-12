@@ -11,6 +11,8 @@
 	include LIB_PATH . "application/base/interfaces/loadertype.php";
 
 	include LIB_PATH . 'application/base/generic.php';
+	include LIB_PATH . 'application/base/genericlist.php';
+	include LIB_PATH . 'application/base/genericiterator.php';
 	include LIB_PATH . 'application/base/filepathresolver.php';
 	//include LIB_PATH . 'application/base/user.php';
 	include LIB_PATH . 'application/base/library.php';
